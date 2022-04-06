@@ -6,10 +6,14 @@ from django.core.exceptions import ValidationError
 
 class RegistrationForm(forms.ModelForm):
     password2 = forms.CharField(label='Password confirmation', widget=forms.PasswordInput)
+    password = forms.CharField(widget=forms.PasswordInput)
+    email = forms.CharField(widget=forms.EmailInput(attrs={
+        'placeholder': 'Email'
+    }))
 
     class Meta:
         model = get_user_model()
-        fields = ('email', 'fullname', 'is_instructor', 'password')
+        fields = ('fullname', 'email', 'is_instructor', 'password')
 
     def clean_password2(self):
         password = self.cleaned_data.get('password')
